@@ -67,7 +67,9 @@ const RocketDetails: React.FC<IRocketDetailsProps> = ({ rocketDetails }) => {
     return (
         <RocketDetailsContainer>
             {rocketDetails.map((rocketValue: any) => {
-                const { details = '', mission_name = '', flight_number = '', mission_id = [], launch_year = '', launch_success, launch_landing, links = {} } = rocketValue || {};
+                const { details = '', mission_name = '', flight_number = '', mission_id = [], launch_year = '', launch_landing, links = {}, rocket = {} } = rocketValue || {};
+                const { first_stage: { cores = [] } } = rocket || {};
+                const { launch_success } = cores[0]
                 const { mission_patch_small = '' } = links || {};
                 return (
                     <div className='individual-content-container' key={flight_number}>
@@ -89,7 +91,7 @@ const RocketDetails: React.FC<IRocketDetailsProps> = ({ rocketDetails }) => {
                                     <div className='row-label'>Successful Launch:</div><div className='row-value'>{launch_success ? 'Yes' : 'No'}</div>
                                 </div>
                                 <div className='details-row'>
-                                    <div className='row-label'>Successful Land:</div><div className='row-value'>{launch_landing === undefined ? '-' : launch_landing ? 'Yes' : 'No'}</div>
+                                    <div className='row-label'>Successful Land:</div><div className='row-value'>{launch_landing === null ? 'N/A' : launch_landing ? 'Yes' : 'No'}</div>
                                 </div>
                             </div>
                         </div>

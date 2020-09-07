@@ -76,30 +76,19 @@ function SpaceXComponent() {
 
 	useEffect(() => {   //generate Querystring when filter
 		if (isManuallyChanges && (activeYear || successfulLaunch || successfulLanding)) {
-			let currentUrl = `/100`,
-				queryString = `?limit=100`;
+			let queryString = `?limit=100`;
 
 			if (activeYear && activeYear !== ' ') {
-				currentUrl += `/${activeYear}`;
 				queryString += `&launch_year=${activeYear}`;
-			} else {
-				currentUrl += `/ `;
 			}
 			if (successfulLaunch) {
-				currentUrl += `/${successfulLaunch}`;
 				queryString += `&launch_success=${successfulLaunch}`;
-			} else {
-				currentUrl += `/ `;
 			}
 			if (successfulLanding) {
-				currentUrl += `/${successfulLanding}`;
 				queryString += `&land_success=${successfulLanding}`;
-			} else {
-				currentUrl += `/ `;
 			}
 			getRocketDetails(queryString);
 			const newUrl = window.location.protocol + "//" + window.location.host + '/sapient-assignment' + queryString;
-			console.log(newUrl);
 			window.history.pushState({ path: newUrl }, '', newUrl);
 		}
 	}, [isManuallyChanges, activeYear, successfulLaunch, successfulLanding]);
@@ -125,7 +114,6 @@ function SpaceXComponent() {
 	const getParam = () => {    //If url have querystring set the values to respective state
 		let queryString = '?';
 		const queryParams: any = queryStringToObjectConverter() || {};
-		console.log(queryParams);
 		for (let param in queryParams) {
 			if (queryParams[param] && queryParams[param] !== ' ') {
 				if (param === 'launch_year') {
@@ -141,8 +129,6 @@ function SpaceXComponent() {
 		}
 		return queryString;
 	}
-
-
 
 	return (
 		<SpaceXComponentContainer>
